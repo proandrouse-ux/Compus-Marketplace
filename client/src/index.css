@@ -1,9 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Google Fonts - Poppins for headlines, Inter already included in Tailwind */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-heading: "Poppins", sans-serif;
+  --font-sans: "Inter", sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -43,39 +48,40 @@
 }
 
 :root {
-  --primary: var(--color-blue-700);
-  --primary-foreground: var(--color-blue-50);
-  --sidebar-primary: var(--color-blue-600);
-  --sidebar-primary-foreground: var(--color-blue-50);
-  --chart-1: var(--color-blue-300);
-  --chart-2: var(--color-blue-500);
-  --chart-3: var(--color-blue-600);
-  --chart-4: var(--color-blue-700);
-  --chart-5: var(--color-blue-800);
+  /* Modern Professional Trust - Deep Teal & Warm Gold */
+  --primary: oklch(0.5 0.15 200); /* Deep Teal - Primary CTA color */
+  --primary-foreground: oklch(1 0 0); /* White text on teal */
+  --sidebar-primary: oklch(0.5 0.15 200);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --accent: oklch(0.75 0.12 60); /* Warm Gold - Verification badges */
+  --accent-foreground: oklch(0.235 0.015 65); /* Charcoal text on gold */
+  --chart-1: oklch(0.5 0.15 200);
+  --chart-2: oklch(0.55 0.14 200);
+  --chart-3: oklch(0.45 0.16 200);
+  --chart-4: oklch(0.75 0.12 60);
+  --chart-5: oklch(0.7 0.13 60);
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.235 0.015 65);
+  --background: oklch(1 0 0); /* Clean white */
+  --foreground: oklch(0.235 0.015 65); /* Charcoal text */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.235 0.015 65);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.235 0.015 65);
-  --secondary: oklch(0.98 0.001 286.375);
+  --secondary: oklch(0.95 0.001 0); /* Soft gray for secondary elements */
   --secondary-foreground: oklch(0.4 0.015 65);
-  --muted: oklch(0.967 0.001 286.375);
+  --muted: oklch(0.95 0.001 0);
   --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.141 0.005 285.823);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
-  --ring: oklch(0.623 0.214 259.815);
+  --ring: oklch(0.5 0.15 200);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.235 0.015 65);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-accent: oklch(0.75 0.12 60);
+  --sidebar-accent-foreground: oklch(0.235 0.015 65);
   --sidebar-border: oklch(0.92 0.004 286.32);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --sidebar-ring: oklch(0.5 0.15 200);
 }
 
 .dark {
@@ -118,7 +124,19 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+  h1 {
+    @apply text-4xl font-bold;
+  }
+  h2 {
+    @apply text-3xl font-bold;
+  }
+  h3 {
+    @apply text-xl font-semibold;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
