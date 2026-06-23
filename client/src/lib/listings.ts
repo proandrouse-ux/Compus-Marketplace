@@ -12,6 +12,8 @@ export interface Listing {
   sellerContact: string;
   image: string;
   verified: boolean;
+  approved: boolean; // Admin approval status
+  submittedAt?: number; // Timestamp when submitted
 }
 
 export const listings: Listing[] = [
@@ -25,6 +27,7 @@ export const listings: Listing[] = [
     sellerContact: "+250788123456",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-laptops-BwtmaUXFCGp6JnNzg8AXpW.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "laptop-2",
@@ -35,6 +38,7 @@ export const listings: Listing[] = [
     sellerContact: "+250789654321",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-laptops-BwtmaUXFCGp6JnNzg8AXpW.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "laptop-3",
@@ -45,6 +49,7 @@ export const listings: Listing[] = [
     sellerContact: "+250790111222",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-laptops-BwtmaUXFCGp6JnNzg8AXpW.webp",
     verified: true,
+    approved: true,
   },
 
   // Smartphones
@@ -57,6 +62,7 @@ export const listings: Listing[] = [
     sellerContact: "+250788222333",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-phones-QsJzUTFUKudtVUtaNSvi44.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "phone-2",
@@ -67,6 +73,7 @@ export const listings: Listing[] = [
     sellerContact: "+250789333444",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-phones-QsJzUTFUKudtVUtaNSvi44.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "phone-3",
@@ -77,6 +84,7 @@ export const listings: Listing[] = [
     sellerContact: "+250790444555",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-phones-QsJzUTFUKudtVUtaNSvi44.webp",
     verified: true,
+    approved: true,
   },
 
   // Houses (Student Accommodation)
@@ -89,6 +97,7 @@ export const listings: Listing[] = [
     sellerContact: "+250788555666",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-accommodation-2q8SM72RfP7vXxGurWp3Es.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "house-2",
@@ -99,6 +108,7 @@ export const listings: Listing[] = [
     sellerContact: "+250789666777",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-accommodation-2q8SM72RfP7vXxGurWp3Es.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "house-3",
@@ -109,6 +119,7 @@ export const listings: Listing[] = [
     sellerContact: "+250790777888",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-accommodation-2q8SM72RfP7vXxGurWp3Es.webp",
     verified: true,
+    approved: true,
   },
 
   // Books
@@ -121,6 +132,7 @@ export const listings: Listing[] = [
     sellerContact: "+250788888999",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-books-JaJnXwSt6gxA89ZMZ2YRF5.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "book-2",
@@ -131,6 +143,7 @@ export const listings: Listing[] = [
     sellerContact: "+250789999000",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-books-JaJnXwSt6gxA89ZMZ2YRF5.webp",
     verified: true,
+    approved: true,
   },
   {
     id: "book-3",
@@ -141,5 +154,6 @@ export const listings: Listing[] = [
     sellerContact: "+250790000111",
     image: "https://d2xsxph8kpxj0f.cloudfront.net/310519663460938614/8YNdYvgR6vdjRc569WJJdm/category-books-JaJnXwSt6gxA89ZMZ2YRF5.webp",
     verified: true,
+    approved: true,
   },
 ];

@@ -7,7 +7,8 @@
  */
 
 import { useState } from "react";
-import { listings, type Listing } from "@/lib/listings";
+import { type Listing } from "@/lib/listings";
+import { useAdmin } from "@/contexts/AdminContext";
 import ProductCard from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Laptop, Smartphone, Home as HomeIcon, BookOpen } from "lucide-react";
@@ -24,11 +25,12 @@ const categories: { name: Category; icon: React.ReactNode; label: string }[] = [
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const { approvedListings } = useAdmin();
 
   const filteredListings: Listing[] =
     selectedCategory === "All"
-      ? listings
-      : listings.filter((item) => item.category === selectedCategory);
+      ? approvedListings
+      : approvedListings.filter((item) => item.category === selectedCategory);
 
   return (
     <main className="min-h-screen bg-background">
