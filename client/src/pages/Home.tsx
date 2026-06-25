@@ -2,16 +2,20 @@
  * Home Page
  * Design: Modern Professional Trust
  * - Hero banner with marketplace overview
+ * - Full-text search bar
  * - Category filter buttons
- * - Product grid with listings
+ * - Product grid with clickable listings
+ * - Product detail modal
  */
 
 import { useState } from "react";
 import { type Listing } from "@/lib/listings";
 import { useAdmin } from "@/contexts/AdminContext";
 import ProductCard from "@/components/ProductCard";
+import ProductDetail from "@/components/ProductDetail";
 import { Button } from "@/components/ui/button";
-import { Laptop, Smartphone, Home as HomeIcon, BookOpen } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Laptop, Smartphone, Home as HomeIcon, BookOpen, Search, X } from "lucide-react";
 
 type Category = "Laptops" | "Smartphones" | "Houses" | "Books" | "All";
 
@@ -25,12 +29,36 @@ const categories: { name: Category; icon: React.ReactNode; label: string }[] = [
 
 export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<Listing | null>(null);
+  const [showDetail, setShowDetail] = useState(false);
   const { approvedListings } = useAdmin();
 
-  const filteredListings: Listing[] =
+  // Filter by category
+  let filteredListings: Listing[] =
     selectedCategory === "All"
       ? approvedListings
       : approvedListings.filter((item) => item.category === selectedCategory);
+
+  // Filter by search query (full-text search)
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase();
+    filteredListings = filteredListings.filter(
+      (item) =>
+        item.title.toLowerCase().includes(query) ||
+        item.description.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query)
+    );
+  }
+
+  const handleProductClick = (product: Listing) => {
+    setSelectedProduct(product);
+    setShowDetail(true);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
 
   return (
     <main className="min-h-screen bg-background">
@@ -51,6 +79,33 @@ export default function Home() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Search Bar */}
+      <section className="container py-8 border-b border-border">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Input
+            type="text"
+            placeholder="Search by title, category, or description..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 pr-10 py-3 text-base"
+          />
+          {searchQuery && (
+            <button
+              onClick={clearSearch}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+        </div>
+        {searchQuery && (
+          <p className="text-sm text-muted-foreground mt-2">
+            Found {filteredListings.length} result{filteredListings.length !== 1 ? "s" : ""} for "{searchQuery}"
+          </p>
+        )}
       </section>
 
       {/* Category Filter */}
@@ -81,12 +136,20 @@ export default function Home() {
         {filteredListings.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredListings.map((listing) => (
-              <ProductCard key={listing.id} listing={listing} />
+              <ProductCard
+                key={listing.id}
+                listing={listing}
+                onClick={() => handleProductClick(listing)}
+              />
             ))}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-lg text-muted-foreground">No listings found in this category.</p>
+            <p className="text-lg text-muted-foreground">
+              {searchQuery
+                ? `No listings found matching "${searchQuery}"`
+                : "No listings found in this category."}
+            </p>
           </div>
         )}
       </section>
@@ -100,26 +163,33 @@ export default function Home() {
               <div className="text-4xl mb-3">✓</div>
               <h3 className="font-semibold mb-2">Verified Listings</h3>
               <p className="text-sm text-muted-foreground">
-                Every item is verified and processed under the personal oversight of Androus Alberto Akile.
+                All items are reviewed and verified by our admin team
               </p>
             </div>
             <div>
               <div className="text-4xl mb-3">🔒</div>
-              <h3 className="font-semibold mb-2">Secure Platform</h3>
+              <h3 className="font-semibold mb-2">Secure Transactions</h3>
               <p className="text-sm text-muted-foreground">
-                Direct WhatsApp communication ensures transparent and secure transactions.
+                Direct WhatsApp contact with verified sellers
               </p>
             </div>
             <div>
-              <div className="text-4xl mb-3">📱</div>
-              <h3 className="font-semibold mb-2">Easy to Use</h3>
+              <div className="text-4xl mb-3">⭐</div>
+              <h3 className="font-semibold mb-2">Student Community</h3>
               <p className="text-sm text-muted-foreground">
-                Browse, filter, and contact sellers instantly. Post your items in minutes.
+                Built by students, for students on campus
               </p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Product Detail Modal */}
+      <ProductDetail
+        product={selectedProduct}
+        open={showDetail}
+        onOpenChange={setShowDetail}
+      />
     </main>
   );
 }

@@ -24,7 +24,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm opacity-90">
               <li><a href="/" className="hover:opacity-100 transition-opacity">Browse Listings</a></li>
               <li><a href="/post-item" className="hover:opacity-100 transition-opacity">Post an Item</a></li>
-              <li><a href="#" className="hover:opacity-100 transition-opacity">How It Works</a></li>
+              <li><a href="/admin/login" className="hover:opacity-100 transition-opacity font-medium text-yellow-200">Admin Dashboard</a></li>
             </ul>
           </div>
 

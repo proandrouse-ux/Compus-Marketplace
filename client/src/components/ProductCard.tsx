@@ -13,18 +13,12 @@ import { CheckCircle2 } from "lucide-react";
 
 interface ProductCardProps {
   listing: Listing;
+  onClick: () => void;
 }
 
-export default function ProductCard({ listing }: ProductCardProps) {
-  const handleContactSeller = () => {
-    const message = `Hi, I'm interested in your ${listing.title} listed on Campus Marketplace. Price: ${listing.price} RWF. Please let me know more details.`;
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${listing.sellerContact.replace(/[^0-9]/g, "")}?text=${encodedMessage}`;
-    window.open(whatsappUrl, "_blank");
-  };
-
+export default function ProductCard({ listing, onClick }: ProductCardProps) {
   return (
-    <div className="group bg-card text-card-foreground rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300">
+    <div className="group bg-card text-card-foreground rounded-lg overflow-hidden border border-border hover:shadow-lg transition-shadow duration-300 cursor-pointer hover:scale-105 transform" onClick={onClick}>
       {/* Image Container */}
       <div className="relative overflow-hidden bg-secondary h-48 sm:h-56">
         <img
@@ -61,19 +55,16 @@ export default function ProductCard({ listing }: ProductCardProps) {
 
         {/* Price */}
         <div className="mb-4">
-          <p className="text-2xl font-bold text-primary">
-            {listing.price.toLocaleString()} RWF
+          <p className="text-2xl font-bold text-teal-700">
+            FRw{listing.price.toLocaleString()}
           </p>
-          <p className="text-xs text-muted-foreground">Seller: {listing.sellerContact}</p>
+          <p className="text-xs text-muted-foreground">Click to view details</p>
         </div>
 
-        {/* Contact Button */}
-        <Button
-          onClick={handleContactSeller}
-          className="w-full bg-primary text-primary-foreground hover:bg-opacity-90 font-medium transition-all transform active:scale-95"
-        >
-          Contact Seller via WhatsApp
-        </Button>
+        {/* View Details Hint */}
+        <p className="text-xs text-center text-muted-foreground font-medium py-2 bg-secondary/50 rounded">
+          Tap to view full details
+        </p>
       </div>
     </div>
   );
